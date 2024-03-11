@@ -12,6 +12,16 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+ .icon-a{
+    @apply text-2xl
+ }
+ .icon-hover:hover > svg {
+  @apply transform scale-125; /* Increase size on hover */
+  @apply transition-transform duration-200 ease-in-out; /* Add smooth transition */
+}
+.nav-full{
+  @apply flex flex-col items-center icon-hover
+}
 }
 
 @font-face {
