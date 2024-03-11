@@ -63,7 +63,12 @@ const loginUser = async (req,res) =>{
     
 }
 
+const authUser = (req,res) =>{
+    console.log(req.cookies)
+    res.status(200).json({error:false,message:'Authenticated user'})
+}
+
 
 module.exports = {
-    registerUser , loginUser
+    registerUser , loginUser , authUser
 }
