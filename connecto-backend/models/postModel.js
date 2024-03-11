@@ -1,21 +1,30 @@
 const mongoose = require('mongoose');
+const {getNextSequence} = require('../utils/help.service')
 
-const postSchema = new mongoose.Schema({
-    userName : {type: String,required:true},
-    blogid:{type:Number,required:true},
-    date : {type: String},
-    postTitle : {type: String},
-    description : {type: String},
-    content : {type: String},
-    postImg : {type: String},
-    likes:{type:Number,default:0}
-});
 
-postSchema.pre('save',function(next){
-   
+const postSchema = new mongoose.Schema(
+    {
+        username : {type: String,required:true},
+        postId:{type:Number,default:0},
+        postTitle : {type: String,default:''},
+        content : {type: String,default:''},
+        postImg : {type: String,default:''},
+        likes:{type:Number,default:0}
+    },
+    {
+        timestamps:true,
+    }
+);
+
+postSchema.pre('save', async function(next){
+   if(!this.postId){
+        this.postId = await getNextSequence('postId')
+        console.log(this.postId)
+   }
+   next()
 })
 
 
-const postModel = mongoose.model("post", postSchema);
+const Posts = mongoose.model("post", postSchema);
 
-module.exports = postModel;
+module.exports = Posts;
