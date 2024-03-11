@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-
+const {Counter} = require('../models/counterSchema')
 
 const generateJWT = (user) => {
     const secret = process.env.JWT_SECRET ;
@@ -10,5 +10,14 @@ const generateJWT = (user) => {
     return token;
 }
 
+async function getNextSequence(sequenceName) {
+  const counter = await Counter.findByIdAndUpdate(
+      sequenceName,
+      { $inc: { sequence_value: 1 } },
+      { new: true, upsert: true }
+  );
+  return counter.sequence_value;
+}
 
-module.exports = {generateJWT}
+
+module.exports = {generateJWT , getNextSequence}
