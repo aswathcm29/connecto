@@ -1,5 +1,4 @@
 const {userModel} = require('../models/userModel')
-const {userRegisterObject} = require('../utils/objectCreate')
 const bcrypt = require('bcrypt')
 const {generateJWT} = require('../utils/help.service')
 
@@ -64,7 +63,6 @@ const loginUser = async (req,res) =>{
 }
 
 const authUser = (req,res) =>{
-    console.log(req.cookies)
     res.status(200).json({error:false,message:'Authenticated user'})
 }
 
