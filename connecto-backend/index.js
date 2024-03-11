@@ -5,6 +5,7 @@ const userRouter = require('./routes/userRoutes')
 const postRouter = require('./routes/postRoutes')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const compression = require('compression')
 const connection = require('./db')
 
 
@@ -12,6 +13,7 @@ connection()
 app.use(cookieParser())
 app.use(express.json())
 app.use(bodyParser.json())
+app.use(compression())
 
 app.use('/api/users',userRouter)
 app.use('/api/posts',postRouter)
