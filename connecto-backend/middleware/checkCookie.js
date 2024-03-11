@@ -1,12 +1,16 @@
-const authCookie = (req,res,next) =>{
+const jwt = require('jsonwebtoken')
+
+const authCookie =async (req,res,next) =>{
     const cookie = req.cookies;
-
-    if(!cookie){
-        return res.status(401).json({error:true,message:'UnAuthorized'})
+    const secret = process.env.JWT_SECRET
+    try{
+        const decoded =  jwt.verify(cookie.token,secret)
+        req.user = decoded;
+        next()
+    }catch(err){
+        return res.status(401).json({error:true,message:err.message})
     }
-    next()
 }
-
 
 module.exports = {
     authCookie

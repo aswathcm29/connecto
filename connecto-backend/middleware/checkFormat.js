@@ -4,12 +4,8 @@ function validatePostData(req, res, next) {
     if(!username || !postTitle || !content){
         return res.status(400).json({ error: 'Enter all the fields' });
     }   
-
     next();
 }
-
-
-
 
 module.exports = {
     validatePostData

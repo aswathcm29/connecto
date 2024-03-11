@@ -18,7 +18,6 @@ async function getNextSequence(sequenceName) {
       { $inc: { sequence_value: 1 } },
       { new: true, upsert: true }
   );
-  console.log(counter)
   return counter.sequence_value;
 }
 

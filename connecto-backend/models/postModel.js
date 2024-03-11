@@ -19,7 +19,6 @@ const postSchema = new mongoose.Schema(
 postSchema.pre('save', async function(next){
    if(!this.postId){
         this.postId = await getNextSequence('postId')
-        console.log(this.postId)
    }
    next()
 })
