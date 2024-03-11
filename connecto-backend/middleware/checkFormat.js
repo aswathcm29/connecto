@@ -23,6 +23,14 @@ async function validateCommentData(req,res,next){
     next()
 }
 
+async function validateFollowData(req,res,next){
+    const {follow_user} = req.body;
+    if(!follow_user){
+        return res.status(400).json({error:true,message:'Enter All Field'})
+    }
+    next()
+}
+
 module.exports = {
-    validatePostData , validateLikeData , validateCommentData
+    validatePostData , validateLikeData , validateCommentData , validateFollowData
 }
