@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Message = () => {
+const Right = () => {
   return (
-    <div>Message</div>
+  <div>Right</div>
   )
 }
 
-export default Message
+export default Right

@@ -3,13 +3,12 @@ import { AiFillMessage } from "react-icons/ai";
 import { HiHome } from "react-icons/hi";
 import { RiNotification2Fill } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
-
 import { IoSearchSharp } from "react-icons/io5";
 
 const Navbar = () => {
   return (
     <>
-      <nav className='flex justify-between items-center p-8 bg-zinc-800 text-white'>
+      <nav className='flex justify-between items-center p-6 bg-zinc-800 text-white'>
          <h1 className='text-3xl text-white font-semibold'>Connecto.</h1>
     <div className="flex items-center">
        <input className="ml-2 border-black border-2 rounded-lg pl-3 px-10 py-2" type="text" name="search" id="search" placeholder="Search..." />
