@@ -1,16 +1,16 @@
 import React from 'react'
-import Right from './Message'
+import Right from './Right'
 import Posts from './Posts'
-import Profile from './Profile'
+import Left from './Left'
 const Main = () => {
   return (
-    <>
-        <div className="flex w-full items-center justify-between">
-            <Profile/>
+    <div className='h-[87.6vh] overflow-y-auto bg-zinc-900'>
+        <div className="flex w-[80%] mx-auto items-center justify-between ">
+            <Left/>
             <Posts/>
             <Right/>
         </div>
-    </>
+    </div>
   )
 }
 
