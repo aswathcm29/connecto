@@ -1,11 +1,9 @@
-import React from 'react'
+import React , {useState} from 'react'
 import './homepage.css'
 import PopupPost from './PopupPost'
 
- const CreatePost=()=>{
-  const addPost=()=>{
-    const state=true;
-  }
+ const CreatePost=(props)=>{
+  const { addPost, setAddPost } = props
   return(
   <>
     <div className='create-post'>
@@ -17,19 +15,20 @@ import PopupPost from './PopupPost'
           <span>What's happening ?</span>
         </div>
       </div>
-        <button className=' w-[8rem] h-[2.4rem] bg-blue-800 rounded-xl mt-5' >
-        <span className='text-zinc-200'>Add post</span>
+        <button className=' w-[8rem] h-[2.4rem] bg-blue-800 rounded-xl mt-5' onClick={()=>setAddPost(true)}>
+          <span className='text-zinc-200'>Add post</span>
         </button>
       </div>
     </div> 
   </>
   )
  }
-const Posts = () => {
+const Posts = (props) => {
+  const { addPost, setAddPost } = props
   return (
     <div className="p-1 overflow-hidden h-[87vh] overflow-y-auto no-scrollbar">
        <div className=" flex flex-col gap-y-3 mt-3  ">
-                  <CreatePost/>
+        <CreatePost addPost={addPost} setAddPost={setAddPost}/>
                   <div className='post-box'></div>
                   <div className='post-box'></div>
                   <div className='post-box'></div>
