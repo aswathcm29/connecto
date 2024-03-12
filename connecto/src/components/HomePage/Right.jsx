@@ -1,5 +1,5 @@
 import React from 'react'
-
+import './homepage.css'
 
 const Message =()=>{
   return(<>
@@ -9,12 +9,12 @@ const Message =()=>{
 
 const Suggest =()=>{
   return(<>
-        <div className='w-[19rem] h-[15rem] bg-zinc-600 flex items-center justify-center m-4 rounded-xl'></div>
+        <div className='w-[19rem] h-[15rem] bg-zinc-950 flex items-center justify-center m-4 rounded-xl'></div>
   </>);
 }
 const Right = () => {
   return (
-  <div className='flex flex-col relative bottom-[4.9rem]'>
+  <div className='flex flex-col pb-[10.2rem]'>
      <Message/>
      <Suggest/>
   </div>

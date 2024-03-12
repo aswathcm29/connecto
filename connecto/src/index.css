@@ -24,18 +24,7 @@
 .nav-full{
   @apply flex flex-col items-center icon-hover
 }
-.profile-box{
-  @apply w-[19rem] h-[15rem] bg-zinc-600 flex items-center justify-center m-4 rounded-xl
-}  
-.message-box{
-  @apply w-[19rem] h-[15rem] bg-zinc-600 flex items-center justify-center m-4 rounded-xl
-}
-.post-box{
-  @apply w-[27.5rem] h-[22rem] bg-zinc-600  m-4 rounded-xl
-}
-.create-post{
-  @apply w-[27.5rem] h-[10rem] bg-zinc-600 flex items-center justify-center m-4 rounded-xl
-}
+
 }
 
 @font-face {

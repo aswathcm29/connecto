@@ -1,5 +1,5 @@
 import React from 'react'
-
+import './homepage.css'
 const Posts = () => {
   return (
     <div className="p-1 overflow-hidden h-[87vh] overflow-y-auto no-scrollbar">
