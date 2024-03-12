@@ -5,7 +5,7 @@ import { BiUser } from 'react-icons/bi';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { AiOutlineMail } from 'react-icons/ai';
 import LoginForm from './LoginForm';
-import axios from '/axios'
+import axios from 'axios'
 
 const SignupForm = () => {
   const [username, setUsername] = useState('');
