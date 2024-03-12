@@ -15,7 +15,7 @@ const Profile = () => {
     <div className='profile-box flex-col shadow-lg'>
     <div className='flex flex-row justify-between items-center pb-2'>
        <img src ="https://i.pinimg.com/originals/10/ba/fc/10bafc8ee82ff594207410048a962188.jpg" alt='nothing'
-        className='rounded-full mr-8 w-[5rem] h'></img>
+        className='rounded-full mr-8 w-[5rem]'></img>
         <div className='flex flex-col'>
         <div className='text-2xl '>Aswath CM</div>
         <div className='text-zinc-400 text-[11px]'>@aswathcm29</div>

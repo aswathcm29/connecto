@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { useState } from 'react';
 import axios from 'axios';
 
-const PopupPost = () => {
+const PopupPost = () => { 
+    const[isOpen,setIsOpen] = useState(true)
+    const closePopup=()=>{
+        setIsOpen(false)
+    }
     const [title,setTitle] = useState('')
     const [description,setDescription] = useState('')
 
@@ -36,9 +39,11 @@ const PopupPost = () => {
 
 
   return (
-    <div className='h-[25rem] bg-zinc-800 rounded-xl w-[35rem] p-4 relative '>
+    <>
+    {isOpen && (
+       <div className='h-[25rem] bg-zinc-800 rounded-xl w-[35rem] p-4 relative '>
         <div className='text-right'>
-              <button className={''}>
+              <button onClick={closePopup} className={''}>
                   <IoCloseCircleOutline className='text-3xl text-white' />
               </button>
         </div>
@@ -68,6 +73,9 @@ const PopupPost = () => {
         </div>
 
     </div>
+    ) }
+   
+    </>
   )
 }
 
