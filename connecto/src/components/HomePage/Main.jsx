@@ -6,7 +6,7 @@ import Left from './Left'
 const Main = () => {
   return (
     <>
-    <div className='bg-zinc-900'>
+    <div className='bg-zinc-900 '>
         <div className="flex w-[80%] mx-auto items-center justify-between ">
             <Left/>
             <Posts/>
