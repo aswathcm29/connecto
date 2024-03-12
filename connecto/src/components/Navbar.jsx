@@ -10,7 +10,7 @@ const Navbar = () => {
         
   return (
     <>
-      <nav className='flex justify-between items-center p-6 bg-zinc-800 text-white'>
+      <nav className='flex justify-between items-center p-6 bg-zinc-950 text-white'>
          <h1 className='text-3xl text-white font-semibold'>Connecto.</h1>
          <div className="flex items-center">
                 <input className="ml-2 rounded-lg pl-3 px-10 py-2 text-gray-800" type="text" name="search" id="search" placeholder="Search..." />
