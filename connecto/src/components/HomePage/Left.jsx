@@ -2,7 +2,7 @@ import React from 'react'
 
 const Left = ()=>{
   return (
-     <div className=' relative bottom-[14.4rem]'>
+     <div className=' relative bottom-[13.6rem]'>
        <Profile/>
      </div>
   )
