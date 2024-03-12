@@ -24,18 +24,18 @@ const Profile = () => {
         <div className='flex flex-row py-6'>
         <div className='flex flex-col'>
           <div className='px-5 py-2 mb-2 rounded-lg flex items-center justify-center  bg-zinc-800 hover:shadow-md cursor-pointer'>
-            Followers
+              <p>Followers</p>
           </div>
           <div className='flex justify-center items-center text-xl'><CountUp end={567} /></div>
         </div>
         <div className='flex flex-col ml-4'>
           <div className='px-5 py-2 mb-2 rounded-lg flex items-center justify-center bg-zinc-800 hover:shadow-md cursor-pointer'>
-            Following
+              <p>Following</p>
           </div>
           <div className='flex justify-center items-center text-xl'><CountUp end={890} /></div>
         </div>
       </div>
-        <Link to='/Profile'> <button className='px-2 py-2 mt-1 bg-zinc-800  rounded-lg'>
+        <Link to={`/Profile/${'aswath'}`}> <button className='px-2 py-2 mt-1 bg-zinc-800  rounded-lg'>
              View Profile
         </button>
         </Link>
