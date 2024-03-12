@@ -5,6 +5,8 @@ import App from './App';
 import Main from './components/HomePage/Main';
 import {RouterProvider, createBrowserRouter} from 'react-router-dom'
 import reportWebVitals from './reportWebVitals';
+import Profile from './components/ProfilePage/Profile';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -20,9 +22,11 @@ const appRouter = createBrowserRouter([
       {
         path:'/home',
         element:<Main/>,
+      },
+      {
+        path:'/profile/:username',
+        element:<Profile/>,
       }
-      
-      
     ]
   }
 ])

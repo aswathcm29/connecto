@@ -4,28 +4,10 @@ import { HiHome } from "react-icons/hi";
 import { RiNotification2Fill } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { IoSearchSharp } from "react-icons/io5";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-
-        const navItems = [
-                {
-                        icon:<HiHome className='mb-1' />,
-                        text:'Home'
-                 },
-                {
-                        icon:<AiFillMessage className='mb-1' />,
-                        text:'Chat' 
-                },
-                {
-                        icon:<RiNotification2Fill className='mb-1' />,
-                        text: 'Notify' 
-                },
-                {
-                        icon:<CgProfile className='mb-1' />, 
-                        text: 'Profile' 
-                }];
-
+        
   return (
     <>
       <nav className='flex justify-between items-center p-6 bg-zinc-800 text-white'>
@@ -36,14 +18,30 @@ const Navbar = () => {
         </div>
          <div>
             <ul className='flex items-center space-x-20 pr-5 icon-a'>
-                {navItems.map((item, index) => (
-                    <Link key={index} to='/'>
+                 <Link  to={`/home`}>
                         <li className='nav-full'>
-                            {item.icon}
-                            <span className='text-[1rem]'>{item.text}</span>
+                           <HiHome className='mb-1' />
+                            <span className='text-[1rem]'>{'Home'}</span>
                         </li>
-                    </Link>
-                ))}
+                </Link>
+                <Link to={`/chat`}>
+                        <li className='nav-full'>
+                         <AiFillMessage className='mb-1' />
+                            <span className='text-[1rem]'>{'Chat'}</span>
+                        </li>
+                </Link>
+                <Link to={`/notifications`}>
+                        <li className='nav-full'>
+                                <RiNotification2Fill className='mb-1' />
+                            <span className='text-[1rem]'>{'Ring'}</span>
+                        </li>
+                </Link>
+                <Link  to={`/profile/${'aswath'}`}>
+                        <li className='nav-full'>
+                             <CgProfile className='mb-1' />
+                            <span className='text-[1rem]'>{'Profile'}</span>
+                        </li>
+                </Link>
             </ul>
         </div>
       </nav>
