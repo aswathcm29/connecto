@@ -1,14 +1,16 @@
 import './App.css';
-import Profile from './components/HomePage/Profile';
 import Navbar from './components/Navbar';
 import Main from './components/HomePage/Main';
 
 function App() {
   return (
-    <>
-        <Navbar/>
-        <Main/>
-    </>
+    <div className='h-[100vh] overflow-hidden'>
+      <div className='h-full overflow-y-auto no-scrollbar'> 
+          <Navbar/>
+          <Main/>
+      </div>
+
+    </div>
   );
 }
 
