@@ -1,8 +1,11 @@
 import React from 'react'
 import './homepage.css'
-
+import PopupPost from './PopupPost'
 
  const CreatePost=()=>{
+  const addPost=()=>{
+    const state=true;
+  }
   return(
   <>
     <div className='create-post'>
@@ -14,7 +17,7 @@ import './homepage.css'
           <span>What's happening ?</span>
         </div>
       </div>
-        <button className=' w-[8rem] h-[2.4rem] bg-blue-800 rounded-xl mt-5'>
+        <button className=' w-[8rem] h-[2.4rem] bg-blue-800 rounded-xl mt-5' >
         <span className='text-zinc-200'>Add post</span>
         </button>
       </div>
