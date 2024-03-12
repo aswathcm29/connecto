@@ -1,4 +1,5 @@
 import './App.css';
+import SignupForm from './components/LoginCred/SignupForm';
 import Navbar from './components/Navbar';
 import { Outlet } from 'react-router-dom';
 

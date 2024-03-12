@@ -35,9 +35,9 @@ const Profile = () => {
           <div className='flex justify-center items-center text-xl'><CountUp end={890} /></div>
         </div>
       </div>
-        <Link to='/Profile'> <div className='px-2 py-2 mt-1 bg-zinc-800  rounded-lg'>
+        <Link to='/Profile'> <button className='px-2 py-2 mt-1 bg-zinc-800  rounded-lg'>
              View Profile
-        </div>
+        </button>
         </Link>
     </div>
     </div>
