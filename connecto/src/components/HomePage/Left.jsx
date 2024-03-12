@@ -10,7 +10,8 @@ const Left = ()=>{
 const Profile = () => {
   return (
     <div>
-    <div className='profile-box'></div>
+    <div className='profile-box'>
+    </div>
     </div>
   )
 }
