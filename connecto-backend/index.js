@@ -7,6 +7,7 @@ const profileRouter = require('./routes/profileRoutes')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const compression = require('compression')
+const cors = require('cors')
 const connection = require('./db')
 
 
@@ -14,6 +15,7 @@ connection()
 app.use(cookieParser())
 app.use(express.json())
 app.use(bodyParser.json())
+app.use(cors())
 app.use(compression())
 
 app.use('/api/users',userRouter)
