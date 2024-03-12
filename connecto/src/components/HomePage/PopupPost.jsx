@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoCloseCircleOutline } from "react-icons/io5";
-const PopupPost = () => {
+const PopupPost = () => { 
+  const[isOpen,setIsOpen] = useState(true)
+  const closePopup=()=>{
+    setIsOpen(false)
+  }
   return (
-    <div className='h-[25rem] bg-zinc-800 rounded-xl w-[35rem] p-4 relative '>
+    <>
+    {isOpen && (
+       <div className='h-[25rem] bg-zinc-800 rounded-xl w-[35rem] p-4 relative '>
         <div className='text-right'>
-              <button>
+              <button onClick={closePopup}>
                   <IoCloseCircleOutline className='text-3xl text-white' />
               </button>
         </div>
@@ -30,6 +36,9 @@ const PopupPost = () => {
         </div>
 
     </div>
+    ) }
+   
+    </>
   )
 }
 
