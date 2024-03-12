@@ -1,13 +1,58 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+ .no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+   scrollbar-width: none; /* Firefox */
+ } 
+
+@layer utilities {
+   
+ .icon-a{
+    @apply text-2xl
+ }
+ .icon-hover:hover > svg {
+  @apply transform scale-125; /* Increase size on hover */
+  @apply transition-transform duration-200 ease-in-out; /* Add smooth transition */
+}
+.nav-full{
+  @apply flex flex-col items-center icon-hover
+}
+
+}
+
+@font-face {
+  font-family: 'Satoshi-Bold';
+  src: url('./assets/fonts/Satoshi-Bold.woff2') format('woff2'),
+       url('./assets/fonts/Satoshi-Bold.woff') format('woff'),
+       url('./assets/fonts/Satoshi-Bold.ttf') format('truetype');
+       font-weight: 700;
+       font-display: swap;
+       font-style: normal;
+}
+
+
+* {
+  outline: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Satoshi-Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
