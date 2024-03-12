@@ -10,7 +10,7 @@ const Main = () => {
   return (
     <>
     <div className='bg-zinc-900 relative'>
-        <div className="flex w-[80%] mx-auto items-center justify-between ">
+        <div className="flex w-[80%] mx-auto items-center justify-around ">
             <Left/>
             <Posts addPost={addPost} setAddPost={setAddPost}/>
             <Right/>
