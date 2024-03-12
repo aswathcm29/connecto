@@ -23,12 +23,16 @@ const LoginForm = () => {
   const handleSubmit=async(e)=>{
     e.preventDefault()
     try{
-     const res = await axios.post(process.env.REACT_APP_SIGNIN_URL,{
-       username,
-       password
-     })
-     console.log('Login Successful')
-     console.log(res)
+     const res = await axios.post(process.env.REACT_APP_SIGNIN_URL,
+        {
+          username,
+          password
+        },
+       {
+        withCredentials:true,
+       }
+   )
+
      navigate('/home')
     }
     catch(err){
