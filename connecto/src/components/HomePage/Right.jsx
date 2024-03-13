@@ -79,12 +79,12 @@ const Suggest =()=>{
         </header>
         <div className='overflow-y-auto h-[14rem] no-scrollbar rounded-b-xl'>
         <SuggestBanner 
-        username="Ashwithaa"
+        username="Mad"
         profile="https://i.pinimg.com/originals/10/ba/fc/10bafc8ee82ff594207410048a962188.jpg"></SuggestBanner>
         <SuggestBanner 
        username="Cibiyanna" profile="https://th.bing.com/th/id/OIP.9KB-UoaLsFI-UFgy8n45AAAAAA?rs=1&pid=ImgDetMain"></SuggestBanner>
          <SuggestBanner 
-            username="Jake" profile="https://i.pinimg.com/originals/10/ba/fc/10bafc8ee82ff594207410048a962188.jpg"></SuggestBanner>
+            username="Muruga" profile="https://i.pinimg.com/originals/10/ba/fc/10bafc8ee82ff594207410048a962188.jpg"></SuggestBanner>
          <SuggestBanner 
             username="Karlyn" profile="https://i.pinimg.com/originals/10/ba/fc/10bafc8ee82ff594207410048a962188.jpg"></SuggestBanner>
         </div>

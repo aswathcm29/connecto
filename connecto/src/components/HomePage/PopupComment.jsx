@@ -1,14 +1,39 @@
 import React, { useState , useEffect } from 'react'
 import { IoCloseCircleOutline } from "react-icons/io5";
 import axios from 'axios';
+import { timingFunction } from '../../utils/timingGenerator';
 
 const PopupComment = (props) => {
-    const { addComment, setAddComment } = props
+    const { addComment, setAddComment, openedComment, setOpenedComment } = props
     const closePopup = () => {
         setAddComment(false)
+        setOpenedComment(null)
     }
     const [comment, setComment] = useState('')
     const [showCommnent,setShowComment] = useState(false);
+    const [allComments,setAllComments] = useState([])
+
+    useEffect(()=>{
+        fetchComments()
+    },[])
+
+
+    async function fetchComments() {
+        try{
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/handleComments?postId=${openedComment}`,{withCredentials:true})
+            const newArray = res.data.comments.map((comment)=>{
+                const timing = timingFunction(comment.updatedAt)
+                return{
+                    ...comment,
+                    timing,
+                }
+            })
+            setAllComments(newArray)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
     async function handleSubmit(e) {
         e.preventDefault()
         if (!comment) {
@@ -19,14 +44,15 @@ const PopupComment = (props) => {
         try {
             const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/posts/handleComments`,
                 {
-                    postId:1,
+                    postId:openedComment,
                     comment,
                 },
                 {
                     withCredentials:true,
                 }
             )
-            console.log(res)
+            const timing = timingFunction(res.data.newComment.updatedAt);
+            setAllComments([{...res.data.newComment,timing},...allComments])
         }
         catch (err) {
             console.log(err)
@@ -72,17 +98,21 @@ const PopupComment = (props) => {
                                 </div>
                         </>
                         :<>
-                            <div className='overflow-hidden overflow-y-auto no-scrollbar flex flex-col gap-y-4'> 
-                                    <CommentBox addComment={addComment} setAddComment={setAddComment}
-                                    profileImg="https://th.bing.com/th/id/OIP.9KB-UoaLsFI-UFgy8n45AAAAAA?rs=1&pid=ImgDetMain"
-                                    username="Cibiyanna P"
-                                    time="2 hours ago"
-                                    description="By incorporating these elements into your portfolio, you can demonstrate your passion for data science, your eagerness to learn and grow, and your ability to apply data-driven techniques to real-world problems, all while showcasing your unique journey as an engineering student transitioning into the field of data science." />
-                                    <CommentBox addComment={addComment} setAddComment={setAddComment}
-                                        profileImg="https://th.bing.com/th/id/OIP.9KB-UoaLsFI-UFgy8n45AAAAAA?rs=1&pid=ImgDetMain"
-                                        username="Cibiyanna P"
-                                        time="2 hours ago"
-                                        description="By incorporating these elements into your portfolio, you can demonstrate your passion for data science, your eagerness to learn and grow, and your ability to apply data-driven techniques to real-world problems, all while showcasing your unique journey as an engineering student transitioning into the field of data science." />
+                            <div className='overflow-hidden overflow-y-auto no-scrollbar flex flex-col gap-y-4'>
+                                {
+                                    allComments.map((comment) =>{
+                                        console.log(comment)
+                                        return(
+                                            <>
+                                                <CommentBox
+                                                    profileImg="https://th.bing.com/th/id/OIP.9KB-UoaLsFI-UFgy8n45AAAAAA?rs=1&pid=ImgDetMain"
+                                                    username={comment.comment_user}
+                                                    time={comment.timing}
+                                                    description={comment.comment} />
+                                            </>
+                                        )
+                                    })
+                                } 
                             </div>
                         </>
                     }

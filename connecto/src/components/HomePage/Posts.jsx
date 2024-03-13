@@ -3,13 +3,12 @@ import './homepage.css'
 import axios from 'axios'
 import { BiLike } from "react-icons/bi";
 import { FaComment } from "react-icons/fa";
+import { BiSolidLike } from "react-icons/bi";
+import { timingFunction } from '../../utils/timingGenerator';
+
 
  const CreatePost=(props)=>{
   const { addPost, setAddPost } = props
-
-  const followHandle=()=>{
-
-  }
   return(
   <>
     <div className='create-post'>
@@ -30,7 +29,7 @@ import { FaComment } from "react-icons/fa";
   )
  }
 const Posts = (props) => {
-  const { addPost, setAddPost, addComment, setAddComment } = props
+  const { addPost, setAddPost, addComment, setAddComment, setOpenedComment } = props
   const [allPosts,setAllPosts] = useState([])
 
   useEffect(()=>{
@@ -40,11 +39,20 @@ const Posts = (props) => {
   async function getAllPosts(){
     try{
       const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/newpost`,{withCredentials:true});
-      console.log(res.data)
+    
       const userPost = res.data.posts.filter((post) => {
         return post.username !== res.data.username
       })
-      setAllPosts(userPost)
+      console.log(userPost)
+      const newArray = userPost.map((post) => {
+        const timing = timingFunction(post.updatedAt)
+        return {
+          ...post,
+          timing,
+        }
+      })
+      console.log(newArray)
+      setAllPosts(newArray)
     }catch(err){
       console.log(err.response.data.message)
     }
@@ -61,9 +69,13 @@ const Posts = (props) => {
                   <Postbox addComment={addComment} setAddComment={setAddComment}
                     profileImg="https://th.bing.com/th/id/OIP.9KB-UoaLsFI-UFgy8n45AAAAAA?rs=1&pid=ImgDetMain"
                     username={post.username}
-                    time="2 hours ago"
+                    time={post.timing}
                     key={post.postId}
-                    description={post.content} />
+                    postId={post.postId}
+                    description={post.content} 
+                    likes={post.likes}
+                    setOpenedComment={setOpenedComment}
+                    />
                 </>
               )
             })
@@ -76,10 +88,39 @@ const Posts = (props) => {
 export const Postbox =(props)=>{
     const [follow,setFollow] = useState(false)
     const [active, setActive] = useState(false)
-    const {addComment,setAddComment} = props
+    const { addComment, setAddComment, setOpenedComment } = props
+
     const ToggleFollow = ()=>{
       setFollow(!follow)
     }
+
+    const [username,setUsername] = useState(props.username)
+    const [description, setDescription] = useState(props.description)
+    const [likes, setLikes] = useState(props.likes)
+    const [time,setTime] = useState(props.time)
+    const [postId,setPostId] = useState(props.postId)
+    const [likeflag, setLikeFlag] = useState(-1)
+
+    const handleLikes = async () =>{
+      try{
+        const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/handlelikes?postId=${postId}`,{withCredentials:true})
+        if(res.data.what === -1){
+          setLikeFlag(-1)
+        }
+        if(res.data.what === +1){
+          setLikeFlag(1)
+        }
+        setLikes(likes+res.data.what)
+      } catch(err){
+        console.log('problem in adding likes')
+      }
+    }
+    
+    function handleComment(){
+      setAddComment(true)
+      setOpenedComment(postId)
+    }
+
   return (
     <>
      <div className='post-box mt-10'> 
@@ -88,8 +129,8 @@ export const Postbox =(props)=>{
               <img src={`${props.profileImg}`} alt='mottai' 
               className='mx-2 rounded-full w-[3rem]'></img>
               <div className='flex flex-col'>
-               <span className='mx-2 '>{props.username}</span>
-               <span className='mx-2 text-[10px] text-zinc-300'>{props.time}</span>
+               <span className='mx-2 '>{username}</span>
+               <span className='mx-2 text-[10px] text-zinc-300'>{time}</span>
               </div>
            </div>
            <div className='px-4 text-xl'>
@@ -101,7 +142,7 @@ export const Postbox =(props)=>{
          
          <mid>
          <div className='m-8'>
-             <span className='text-xl text-slate-200'>{props.description}</span>
+             <span className='text-xl text-slate-200'>{description}</span>
          </div>
          </mid>
 
@@ -109,14 +150,16 @@ export const Postbox =(props)=>{
            <div className='flex flex-col'>
            <div className='flex items-center justify-between'>
             <div className='flex  ml-4'>
-               <button className='flex flex-row px-2 py-2 bg-zinc-700 rounded-lg'>
+               <button className='flex flex-row px-2 py-2 bg-zinc-700 rounded-lg' onClick={handleLikes}>
                  {/* <span>Reaction</span> */}
-                 <BiLike className='text-2xl '/>
-                 <span className='pl-2'>123</span>
+                {
+                  likeflag === -1 ? <BiLike className='text-2xl'/> : <BiSolidLike className='text-2xl'/>
+                }
+                 <span className='pl-2'>{likes}</span>
                </button>
             </div>
             <div className='flex  ml-4'>
-               <button className='flex flex-row px-2 py-2 bg-zinc-700 rounded-lg' onClick={()=>setAddComment(true)}>
+               <button className='flex flex-row px-2 py-2 bg-zinc-700 rounded-lg' onClick={handleComment}>
                  <FaComment className='text-2xl'/>
                  <span className='pl-2'>123</span>
                </button>
