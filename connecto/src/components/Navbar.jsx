@@ -1,12 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiFillMessage } from "react-icons/ai";
 import { HiHome } from "react-icons/hi";
 import { RiNotification2Fill } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { IoSearchSharp } from "react-icons/io5";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const Navbar = () => {
+        const [username ,setUsername]=useState('')
+        useEffect(()=>{
+            fetctUserData()
+        },[])
+    
+        const fetctUserData = async(username)=>{
+            try{
+                const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users?username=`,{withCredentials:true})
+                setUsername(res.data.user.username)
+            }catch(err){
+                console.log(err)
+            }
+        }
         
   return (
     <>
@@ -36,7 +50,7 @@ const Navbar = () => {
                             <span className='text-[1rem]'>{'Ring'}</span>
                         </li>
                 </Link>
-                <Link  to={`/profile/${'aswath'}`}>
+                <Link  to={`/profile/${username}`}>
                         <li className='nav-full'>
                              <CgProfile className='mb-1' />
                             <span className='text-[1rem]'>{'Profile'}</span>

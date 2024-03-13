@@ -140,11 +140,11 @@ export const Postbox =(props)=>{
            </div>
          </header>
          
-         <mid>
+         <div>
          <div className='m-8'>
              <span className='text-xl text-slate-200'>{description}</span>
          </div>
-         </mid>
+         </div>
 
          <footer className='flex items-center w-full h-[3.9rem] bg-zinc-800 text-zinc-200 rounded-b-lg'>
            <div className='flex flex-col'>
