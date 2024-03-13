@@ -32,10 +32,10 @@ const getPosts = async (req, res) =>{
 
 
 const handleLikes = async (req,res) =>{
-    const {postId} = req.body;
+    const postId = req.query.postId;
     try{
         const query = {postId,liked_person:req.user.username}
-        const post_query = {postId:req.body.postId}
+        const post_query = {postId:req.query.postId}
         const doc = await Likes.findOne(query);
         const post = await Posts.findOne(post_query)
         if(!post){
@@ -43,16 +43,16 @@ const handleLikes = async (req,res) =>{
         }
         if(!doc){
             const newLike = new Likes({
-                postId:req.body.postId,
+                postId:req.query.postId,
                 liked_person:req.user.username
             })
             await newLike.save() // like is created
-            await Posts.findOneAndUpdate({postId:req.body.postId},{$set:{likes:post.likes+1}})
-            return res.status(200).json({error:false,message:'Liked successfully'})
+            await Posts.findOneAndUpdate({postId:req.query.postId},{$set:{likes:post.likes+1}})
+            return res.status(200).json({error:false,message:'Liked successfully',what:+1})
         }else{
             await Likes.findOneAndDelete(query)
-            await Posts.findOneAndUpdate({postId:req.body.postId},{$set:{likes:post.likes-1}})
-            return res.status(200).json({error:false,message:'unLiked successfully'})
+            await Posts.findOneAndUpdate({postId:req.query.postId},{$set:{likes:post.likes-1}})
+            return res.status(200).json({error:false,message:'unLiked successfully',what:-1})
         }
     } catch(err){
         return res.status(409).json({error:true,message:err.message})

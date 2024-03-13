@@ -6,7 +6,7 @@ const {authCookie} = require('../middleware/checkCookie')
 
 
 router.route('/newpost').post(authCookie,validatePostData,addNewPost).get(authCookie,getPosts)
-router.route('/handlelikes').post(authCookie,validateLikeData,handleLikes)
+router.route('/handlelikes').get(authCookie,handleLikes)
 router.route('/handleComments').post(authCookie,validateCommentData,handleComments)
 module.exports = router;
 
