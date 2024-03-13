@@ -60,7 +60,7 @@ const Postbox =(props)=>{
     }
   return (
     <>
-     <div className='post-box mt-10'> 
+     <div className='post-box mt-10 '> 
          <header className='flex items-center justify-between w-full h-[3.9rem] bg-zinc-800 text-zinc-200 rounded-t-lg '>
          <div className='flex flex-row items-center'>
               <img src={`${props.profileImg}`} alt='mottai' 
@@ -87,14 +87,14 @@ const Postbox =(props)=>{
            <div className='flex flex-col'>
            <div className='flex items-center justify-between'>
             <div className='flex  ml-4'>
-               <button className='flex flex-row px-2 py-2 bg-zinc-700 rounded-lg'>
+               <button className='flex flex-row px-3 py-2 bg-zinc-700 rounded-lg'>
                  {/* <span>Reaction</span> */}
                  <BiLike className='text-2xl '/>
                  <span className='pl-2'>123</span>
                </button>
             </div>
             <div className='flex  ml-4'>
-               <button className='flex flex-row px-2 py-2 bg-zinc-700 rounded-lg'>
+               <button className='flex flex-row px-3 py-2 bg-zinc-700 rounded-lg'>
                  <FaComment className='text-2xl'/>
                  <span className='pl-2'>123</span>
                </button>
