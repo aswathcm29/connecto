@@ -5,8 +5,28 @@ import { IoSend } from "react-icons/io5";
 import { FaComment } from "react-icons/fa";
 import { BiSolidLike } from "react-icons/bi";
 import CountUp from 'react-countup';
-
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 const Profile = () => {
+    const {username} = useParams()
+    const navigate = useNavigate()
+    const [userData,setUserData] = useState(null);
+    useEffect(()=>{
+        fetctUserData(username)
+    },[username])
+
+
+    const fetctUserData = async(username)=>{
+        try{
+            const user = await axios.get(`${process.env.REACT_APP_BASE_URL}/users?username=${username}`,{withCredentials:true})
+            console.log(user)
+        }catch(err){
+            navigate('/home')
+            console.log(err)
+        }
+    }
+
     return(
         <>
             <div className='bg-zinc-900 text-white '>
