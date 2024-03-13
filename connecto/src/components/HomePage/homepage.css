@@ -17,7 +17,7 @@
      @apply w-[27.5rem] h-[22rem] bg-zinc-950  m-4 rounded-xl
    }
    .create-post{
-     @apply w-[27.5rem] h-[10rem] bg-zinc-950 flex items-center justify-center m-4 rounded-xl
+     @apply w-[27.5rem] h-[10rem] bg-zinc-950 flex items-center justify-center mx-auto rounded-xl
    }
    .all-in-all-box{
     @apply w-[27.5rem] h-[22rem] bg-zinc-800  m-4 rounded-xl
