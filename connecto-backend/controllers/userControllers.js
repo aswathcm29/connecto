@@ -1,4 +1,4 @@
-const {userModel} = require('../models/userModel')
+const User = require('../models/userModel')
 const bcrypt = require('bcrypt')
 const {generateJWT} = require('../utils/help.service')
 
@@ -13,13 +13,13 @@ const registerUser = async (req,res) =>{
         if(!username || !email || !password){
             return res.status(403).json({error:true,message:'Enter all fields'})
         }
-        const doc = await userModel.findOne(query)
+        const doc = await User.findOne(query)
         if(doc){
             return res.status(401).json({error:true,message:'User Already Registered'})
         }
         const salt =await  bcrypt.genSalt(10)
         const hassedPassword = await bcrypt.hash(password, salt)
-        const users = new userModel({
+        const users = new User({
             username,
             email,
             password:hassedPassword
@@ -34,23 +34,23 @@ const registerUser = async (req,res) =>{
 
 const loginUser = async (req,res) =>{
     const {username,password} = req.body;
+    console.log(username,password)
     try {
         if (!username || !password) {
             return res.status(400).json({ error: true, message: 'All fields are mandatory.' });
         }
-        const existingUser = await userModel.findOne({ username });
+        const existingUser = await User.findOne({username});
         if (!existingUser) {
             return res.status(401).json({ error: true, message: 'username doesn"t exist' });
         }
         const verified = await bcrypt.compare(password, existingUser.password)
-        console.log(verified)
         if (!verified) {
             return res
                 .status(401)
                 .json({ error: true, message: "Invalid password" });
         }
         const accessToken = generateJWT({ username })
-        res.setHeader('Set-Cookie', [
+        await res.setHeader('Set-Cookie', [
             `token=${accessToken}; HttpOnly; Path=/; Max-Age=${process.env.COOKIE_EXPIRE_TIME}`,
             `loggedIn=true; Max-Age=${process.env.COOKIE_EXPIRE_TIME}`,
         ])
