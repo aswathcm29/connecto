@@ -1,7 +1,6 @@
-import React , {useState} from 'react'
+import React , {useState , useEffect} from 'react'
 import './homepage.css'
-import PopupPost from './PopupPost'
-import { TfiMore } from "react-icons/tfi";
+import axios from 'axios'
 import { BiLike } from "react-icons/bi";
 import { FaComment } from "react-icons/fa";
 
@@ -31,30 +30,53 @@ import { FaComment } from "react-icons/fa";
   )
  }
 const Posts = (props) => {
-  const { addPost, setAddPost } = props
+  const { addPost, setAddPost, addComment, setAddComment } = props
+  const [allPosts,setAllPosts] = useState([])
+
+  useEffect(()=>{
+    getAllPosts()
+  },[])
+
+  async function getAllPosts(){
+    try{
+      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/newpost`,{withCredentials:true});
+      console.log(res.data)
+      const userPost = res.data.posts.filter((post) => {
+        return post.username !== res.data.username
+      })
+      setAllPosts(userPost)
+    }catch(err){
+      console.log(err.response.data.message)
+    }
+  }
+
   return (
     <div className="p-1 overflow-hidden h-[87vh] overflow-y-auto no-scrollbar">
        <div className=" flex flex-col gap-y-3 mt-3  ">
-                  <CreatePost/>
-                  <Postbox 
-                    profileImg = "https://th.bing.com/th/id/OIP.9KB-UoaLsFI-UFgy8n45AAAAAA?rs=1&pid=ImgDetMain"
-                    username="Cibiyanna P"
+          <CreatePost addPost={addPost} setAddPost={setAddPost}/>
+          {
+            allPosts && allPosts.map((post)=>{
+              return(
+                <>
+                  <Postbox addComment={addComment} setAddComment={setAddComment}
+                    profileImg="https://th.bing.com/th/id/OIP.9KB-UoaLsFI-UFgy8n45AAAAAA?rs=1&pid=ImgDetMain"
+                    username={post.username}
                     time="2 hours ago"
-                    description={"By incorporating these elements into your portfolio, you can demonstrate your passion for data science, your eagerness to learn and grow, and your ability to apply data-driven techniques to real-world problems, all while showcasing your unique journey as an engineering student transitioning into the field of data science."}/>
-                     <Postbox 
-                    profileImg = "https://th.bing.com/th/id/OIP.9KB-UoaLsFI-UFgy8n45AAAAAA?rs=1&pid=ImgDetMain"
-                    username="Cibiyanna P"
-                    time="2 hours ago"
-                    description={"By incorporating these elements into your portfolio, you can demonstrate your passion for data science, your eagerness to learn and grow, and your ability to apply data-driven techniques to real-world problems, all while showcasing your unique journey as an engineering student transitioning into the field of data science."}/>
+                    key={post.postId}
+                    description={post.content} />
+                </>
+              )
+            })
+          }
         </div>
     </div>
   )
 }
 
-const Postbox =(props)=>{
+export const Postbox =(props)=>{
     const [follow,setFollow] = useState(false)
     const [active, setActive] = useState(false)
-
+    const {addComment,setAddComment} = props
     const ToggleFollow = ()=>{
       setFollow(!follow)
     }
@@ -94,7 +116,7 @@ const Postbox =(props)=>{
                </button>
             </div>
             <div className='flex  ml-4'>
-               <button className='flex flex-row px-2 py-2 bg-zinc-700 rounded-lg'>
+               <button className='flex flex-row px-2 py-2 bg-zinc-700 rounded-lg' onClick={()=>setAddComment(true)}>
                  <FaComment className='text-2xl'/>
                  <span className='pl-2'>123</span>
                </button>
