@@ -4,7 +4,7 @@ import CountUp from 'react-countup';
 import {Link} from 'react-router-dom';
 const Left = ()=>{
   return (
-     <div className='pb-[24.2rem]'>
+     <div className='pb-[26.1rem]'>
        <Profile/>
      </div>
   )
