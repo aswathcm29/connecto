@@ -25,7 +25,11 @@ const registerUser = async (req,res) =>{
             email,
             password:hassedPassword
         })
+        const newUserProfile = new userProfile({
+            username,
+        })
         await users.save()
+        await newUserProfile.save()
         return res.status(200).json({error:false,message:'Successfully registered'})
     } catch(err){
         return res.status(404).json({error:true,message:'network issue'})

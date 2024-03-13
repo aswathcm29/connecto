@@ -93,7 +93,37 @@ const handleComments = async (req,res) =>{
     }
 }
 
+
+const getUserComments = async (req,res)  =>{
+    try{
+        const response = await Comment.find({post_user:req.query.username})
+        return res.status(200).json({error:false,message:'comments received successfully',usercomments:response})
+    }catch(err){
+        return res.status(409).json({error:true,message:err.message})
+    }
+}
+
+const getUserPosts = async (req,res) =>{
+    try{
+        const response = await Posts.find({username:req.query.username})
+        return res.status(200).json({error:false,message:'posts received successfully',userposts:response})
+    }catch(err){
+        return res.status(409).json({ error: true, message: err.message })
+    }
+}
+
+const getUserLikes = async (req,res) =>{
+    try{
+        const postIds = await Likes.find({liked_person:req.query.username}).select('postId -_id')
+        const postIdValues = postIds.map(obj => obj.postId);
+        const posts = await Posts.find({ postId: { $in: postIdValues } });
+        return res.status(200).json({error:false,message:'posts liked the user',posts})
+    } catch(err){
+        return res.status(409).json({ error: true, message: err.message })
+    }
+}
+
 module.exports = {
-    addNewPost , handleLikes ,handleComments , getPosts , getComments
+    addNewPost , handleLikes ,handleComments , getPosts , getComments , getUserComments , getUserPosts , getUserLikes
 }
 
