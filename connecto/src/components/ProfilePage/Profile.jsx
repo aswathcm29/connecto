@@ -5,8 +5,28 @@ import { IoSend } from "react-icons/io5";
 import { FaComment } from "react-icons/fa";
 import { BiSolidLike } from "react-icons/bi";
 import CountUp from 'react-countup';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const Profile = () => {
+    const [followers,setFollowers]=useState(0)
+    const [following,setFollowing]=useState(0)
+    const [username,setUsername]=useState('Guest')
+    useEffect(()=>{
+        getUserDetails()
+    },[])
+    async function getUserDetails(){
+        try{
+            const res=await axios.get(`${process.env.REACT_APP_BASE_URL}/users?username=asdfa`,{withCredentials:true})
+            setFollowers(res.data.users.followers)
+            setFollowing(res.data.users.following)
+            setUsername(res.data.users.username)
+            console.log(followers)
+            console.log(following)
+        }catch(err){
+           console.log(err.response.data.message)
+        }
+    }
     return(
         <>
             <div className='bg-zinc-900 text-white '>
@@ -26,14 +46,14 @@ const Profile = () => {
                             </div>
                             
                             <div className='flex flex-col justify-center items-center gap-4'>
-                                <h1 className='text-2xl font-bold'>Mikey</h1> 
+                                <h1 className='text-2xl font-bold'>{username}</h1> 
                                 <div className=' flex flex-row justify-around items-center border-2 border-zinc-600 rounded-xl'>
                                     <div className='flex flex-col p-4  justify-center items-center border-r-2   border-gray-600'>
-                                       <CountUp end={125} />
+                                       <CountUp end={followers} />
                                         <p className='text-zinc-400'>Followers</p>
                                     </div>
                                     <div  className='flex flex-col p-4  justify-center items-center'>
-                                        <CountUp end={5} />
+                                        <CountUp end={following} />
                                         <p className='text-zinc-400'>Following</p>
                                     </div>
                                 </div>

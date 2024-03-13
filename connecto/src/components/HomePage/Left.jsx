@@ -10,6 +10,7 @@ const Left = ()=>{
   )
 }
 const Profile = () => {
+
   return (
     <div>
     <div className='profile-box flex-col shadow-lg'>
