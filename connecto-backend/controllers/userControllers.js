@@ -34,7 +34,6 @@ const registerUser = async (req,res) =>{
 
 const loginUser = async (req,res) =>{
     const {username,password} = req.body;
-    console.log(username,password)
     try {
         if (!username || !password) {
             return res.status(400).json({ error: true, message: 'All fields are mandatory.' });

@@ -18,6 +18,19 @@ const addNewPost = async  (req,res) =>{
 }
 
 
+const getPosts = async (req, res) =>{
+    try{
+        const posts = await Posts.find()
+        if(posts.length === 0){
+            return res.status(404).json({error:true,message:'no post found'})
+        }
+        return res.status(200).json({error:false,posts,username:req.user.username})
+    } catch(err){
+        return res.status(409).json({error:true,message:err.message})
+    }
+}
+
+
 const handleLikes = async (req,res) =>{
     const {postId} = req.body;
     try{
@@ -68,6 +81,6 @@ const handleComments = async (req,res) =>{
 }
 
 module.exports = {
-    addNewPost , handleLikes ,handleComments
+    addNewPost , handleLikes ,handleComments , getPosts
 }
 
