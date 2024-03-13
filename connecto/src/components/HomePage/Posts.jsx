@@ -30,11 +30,7 @@ const Posts = () => {
     <div className="p-1 overflow-hidden h-[87vh] overflow-y-auto no-scrollbar">
        <div className=" flex flex-col gap-y-3 mt-3  ">
                   <CreatePost/>
-                  <div className='post-box'></div>
-                  <div className='post-box'></div>
-                  <div className='post-box'></div>
-                  <div className='post-box'></div>
-                  <div className='post-box'></div>
+                  <Postbox/>
         </div>
     </div>
   )
@@ -43,7 +39,9 @@ const Posts = () => {
 const Postbox =()=>{
   return (
     <>
-      
+     <div className='post-box'> 
+           
+     </div>
     </>
   )
 }
