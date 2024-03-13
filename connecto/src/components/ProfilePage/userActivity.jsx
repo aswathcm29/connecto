@@ -21,7 +21,7 @@ const UserActivity = () =>{
     }
     return(
         <>
-            <div className="flex flex-col gap-y-3 justify-center items-center no-scrollbar overflow-y-auto ">
+            <div className="flex flex-col gap-y-3 justify-center items-center no-scrollbar overflow-y-auto">
                 {
                     allPosts && allPosts.map((post) => {
                         return (
