@@ -5,28 +5,28 @@ import { IoSend } from "react-icons/io5";
 import { FaComment } from "react-icons/fa";
 import { BiSolidLike } from "react-icons/bi";
 import CountUp from 'react-countup';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
 const Profile = () => {
-    const [followers,setFollowers]=useState(0)
-    const [following,setFollowing]=useState(0)
-    const [username,setUsername]=useState('Guest')
+    const {username} = useParams()
+    const navigate = useNavigate()
+    const [userData,setUserData] = useState(null);
     useEffect(()=>{
-        getUserDetails()
-    },[])
-    async function getUserDetails(){
+        fetctUserData(username)
+    },[username])
+
+
+    const fetctUserData = async(username)=>{
         try{
-            const res=await axios.get(`${process.env.REACT_APP_BASE_URL}/users?username=asdfa`,{withCredentials:true})
-            setFollowers(res.data.users.followers)
-            setFollowing(res.data.users.following)
-            setUsername(res.data.users.username)
-            console.log(followers)
-            console.log(following)
+            const user = await axios.get(`${process.env.REACT_APP_BASE_URL}/users?username=${username}`,{withCredentials:true})
+            console.log(user)
         }catch(err){
-           console.log(err.response.data.message)
+            navigate('/home')
+            console.log(err)
         }
     }
+
     return(
         <>
             <div className='bg-zinc-900 text-white '>
