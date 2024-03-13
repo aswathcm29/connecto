@@ -1,5 +1,6 @@
 const User = require('../models/userModel')
 const bcrypt = require('bcrypt')
+const userProfile = require('../models/userProfile')
 const {generateJWT} = require('../utils/help.service')
 
 
@@ -61,8 +62,17 @@ const loginUser = async (req,res) =>{
     
 }
 
-const authUser = (req,res) =>{
-    res.status(200).json({error:false,message:'Authenticated user'})
+const authUser = async(req,res) =>{
+    try{
+        const user = await userProfile.findOne({username: req.user.username})
+        if(!user){
+            return res.status(404).json({error:true,message:"username not found"})
+        }
+        return res.status(200).json({error:false,message:"user exicts",user})
+        
+    }catch(err){
+        return res.status(409).json({error:true,message:err.message});
+    }
 }
 
 
