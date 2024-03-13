@@ -1,9 +1,15 @@
 import React , {useState} from 'react'
 import './homepage.css'
 import PopupPost from './PopupPost'
+import { TfiMore } from "react-icons/tfi";
+import Heart from "react-heart"
 
  const CreatePost=(props)=>{
   const { addPost, setAddPost } = props
+
+  const followHandle=()=>{
+
+  }
   return(
   <>
     <div className='create-post'>
@@ -29,17 +35,62 @@ const Posts = (props) => {
     <div className="p-1 overflow-hidden h-[87vh] overflow-y-auto no-scrollbar">
        <div className=" flex flex-col gap-y-3 mt-3  ">
                   <CreatePost/>
-                  <Postbox/>
+                  <Postbox 
+                    profileImg = "https://th.bing.com/th/id/OIP.9KB-UoaLsFI-UFgy8n45AAAAAA?rs=1&pid=ImgDetMain"
+                    username="Cibiyanna P"
+                    time="2 hours ago"
+                    description={"By incorporating these elements into your portfolio, you can demonstrate your passion for data science, your eagerness to learn and grow, and your ability to apply data-driven techniques to real-world problems, all while showcasing your unique journey as an engineering student transitioning into the field of data science."}/>
+                     <Postbox 
+                    profileImg = "https://th.bing.com/th/id/OIP.9KB-UoaLsFI-UFgy8n45AAAAAA?rs=1&pid=ImgDetMain"
+                    username="Cibiyanna P"
+                    time="2 hours ago"
+                    description={"By incorporating these elements into your portfolio, you can demonstrate your passion for data science, your eagerness to learn and grow, and your ability to apply data-driven techniques to real-world problems, all while showcasing your unique journey as an engineering student transitioning into the field of data science."}/>
         </div>
     </div>
   )
 }
 
-const Postbox =()=>{
+const Postbox =(props)=>{
+    const [follow,setFollow] = useState(false)
+    const [active, setActive] = useState(false)
+
+    const ToggleFollow = ()=>{
+      setFollow(!follow)
+    }
   return (
     <>
-     <div className='post-box'> 
-           
+     <div className='post-box mt-10'> 
+         <header className='flex items-center justify-between w-full h-[3.9rem] bg-zinc-800 text-zinc-200 rounded-t-lg '>
+         <div className='flex flex-row items-center'>
+              <img src={`${props.profileImg}`} alt='mottai' 
+              className='mx-2 rounded-full w-[3rem]'></img>
+              <div className='flex flex-col'>
+               <span className='mx-2 '>{props.username}</span>
+               <span className='mx-2 text-[10px] text-zinc-300'>{props.time}</span>
+              </div>
+           </div>
+           <div className='px-4 text-xl'>
+              <button className={`text-[1rem] w-[7rem] h-[2.4rem] rounded-xl ${follow ? ` bg-blue-800`: `border-blue-800 border-2`}`} onClick={ToggleFollow}>
+              {follow ? 'Follow' : 'Following'}
+              </button>
+           </div>
+         </header>
+         
+         <mid>
+         <div className='m-8'>
+             <span className='text-xl text-slate-200'>{props.description}</span>
+         </div>
+         </mid>
+
+         <footer className='flex items-center justify-between w-full h-[3.9rem] bg-zinc-800 text-zinc-200 rounded-b-lg'>
+           <div className='flex'>
+            <div className='flex flex-col items-center justify-center'>
+          <Heart isActive={active} onClick={() => setActive(!active)} className={'w-[1.5rem]'}/>
+            <p className='px-8 '>Likes</p>
+            </div>
+            <p>Comments</p>
+           </div>
+         </footer>
      </div>
     </>
   )
