@@ -16,6 +16,9 @@
    .post-box{
      @apply w-[27.5rem] py-[auto] bg-zinc-950  m-4 rounded-xl
    }
+    .comment-box {
+      @apply w-[80%] mx-auto bg-zinc-700 rounded-xl
+    }
    .create-post{
      @apply w-[27.5rem] h-[10rem] bg-zinc-950 flex items-center justify-center mx-auto rounded-xl
    }
