@@ -8,21 +8,32 @@ import CountUp from 'react-countup';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+
 const Profile = () => {
     const {username} = useParams()
     const navigate = useNavigate()
     const [userData,setUserData] = useState(null);
     const [followers,setFollowers] = useState(0);
     const [following,setFollowing] = useState(0)
+    const [isfollowing,setIsfollow] = useState(0)
     useEffect(()=>{
-        fetctUserData(username)
-    },[username])
+        fetctUserData()
+        checkFollowers()
+    },[])
 
 
-    const fetctUserData = async(username)=>{
+    async function checkFollowers() {
         try{
-            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users?username=`,{withCredentials:true})
-            console.log(res.data.user)
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/profile/checkfollow?follow_user=${username}`, { withCredentials: true })
+            setIsfollow(res.data.what)
+        } catch(err){
+            console.log(err)
+        }
+    }
+
+    const fetctUserData = async ()=>{
+        try{
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users?username=${username}`,{withCredentials:true})
             setFollowers(res.data.user.followers)
             setFollowing(res.data.user.following)
         }catch(err){
@@ -31,16 +42,47 @@ const Profile = () => {
         }
     }
 
+    async function handleFollow(){
+        try{
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/profile/handleFollow?follow_user=${username}`,{withCredentials:true})
+            if(res.data.what === -1){
+                setIsfollow(-1)
+                setFollowers(followers - 1)
+            }
+            if (res.data.what === 1) {
+                setIsfollow(1)
+                setFollowers(followers + 1)
+            }
+        } 
+        catch(err){
+
+        }
+    }
+
     return(
         <>
-            <div className='bg-zinc-900 text-white '>
+            <div className='bg-zinc-900 text-white'>
                 <div className="flex w-[35rem] mx-auto py-10 items-center justify-between">
                     <div className='h-[40rem] bg-zinc-950 w-full rounded-xl border-2 border-zinc-600  shadow-lg shadow-zinc-800'>
                         <div className='p-8 flex flex-col gap-y-2'>
                             <div className='flex flex-row justify-between'>
                                 <button className='text-lg px-4 py-2 rounded-xl bg-blue-800'>Edit</button>
                                 <div className='flex flex-row gap-x-4'>
-                                    <button className='px-4 py-2 rounded-xl bg-blue-800'>Follow +</button>
+
+                                    {
+                                        (isfollowing == -1) ?
+                                        <>  
+                                            <button className='px-4 py-2 rounded-xl bg-blue-800' onClick={handleFollow}>Follow +</button>
+                                        </>
+                                        : (isfollowing == 1) ?
+                                        <>
+                                            <button className='px-4 py-2 rounded-xl bg-blue-800' onClick={handleFollow}>Unfollow +</button>
+                                        </>
+                                        :
+                                        <></>
+
+                                    }
+
                                 </div>
                             </div>
                             <div className='w-full'>

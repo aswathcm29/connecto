@@ -68,13 +68,15 @@ const loginUser = async (req,res) =>{
  
 const authUser = async(req,res) =>{
     try{
-        var user
-        if(req.query.user !== undefined) {
+        var user = ''
+        if(req.query.username !== '') {
             user = await userProfile.findOne({ username: req.query.username })
+            return res.status(200).json({ error: false, message: "user exicts", user })
         } else{
             user = await userProfile.findOne({ username: req.user.username })
+            return res.status(200).json({ error: false, message: "user exicts", user })
         }
-        return res.status(200).json({error:false,message:"user exicts",user})
+       
         
     }catch(err){
         return res.status(409).json({error:true,message:err.message});
