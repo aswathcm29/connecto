@@ -12,6 +12,8 @@ const Profile = () => {
     const {username} = useParams()
     const navigate = useNavigate()
     const [userData,setUserData] = useState(null);
+    const [followers,setFollowers] = useState(0);
+    const [following,setFollowing] = useState(0)
     useEffect(()=>{
         fetctUserData(username)
     },[username])
@@ -19,8 +21,10 @@ const Profile = () => {
 
     const fetctUserData = async(username)=>{
         try{
-            const user = await axios.get(`${process.env.REACT_APP_BASE_URL}/users?username=${username}`,{withCredentials:true})
-            console.log(user)
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users?username=`,{withCredentials:true})
+            console.log(res.data.user)
+            setFollowers(res.data.user.followers)
+            setFollowing(res.data.user.following)
         }catch(err){
             navigate('/home')
             console.log(err)
@@ -47,7 +51,7 @@ const Profile = () => {
                             
                             <div className='flex flex-col justify-center items-center gap-4'>
                                 <h1 className='text-2xl font-bold'>{username}</h1> 
-                                <div className=' flex flex-row justify-around items-center border-2 border-zinc-600 rounded-xl'>
+                                  <div className=' flex flex-row justify-around items-center border-2 border-zinc-600 rounded-xl'>
                                     <div className='flex flex-col p-4  justify-center items-center border-r-2   border-gray-600'>
                                        <CountUp end={followers} />
                                         <p className='text-zinc-400'>Followers</p>
