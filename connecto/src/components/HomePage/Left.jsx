@@ -24,7 +24,6 @@ const Profile = () => {
     const fetctUserData = async(username)=>{
         try{
             const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users?username=`,{withCredentials:true})
-            console.log(res.data.user)
             setFollowers(res.data.user.followers)
             setFollowing(res.data.user.following)
             setUsername(res.data.user.username)

@@ -43,7 +43,6 @@ const getComments = async (req, res) => {
     }
 }
 
-
 const handleLikes = async (req,res) =>{
     const postId = req.query.postId;
     try{
@@ -96,7 +95,7 @@ const handleComments = async (req,res) =>{
 
 const getUserComments = async (req,res)  =>{
     try{
-        const response = await Comment.find({post_user:req.query.username})
+        const response = await Comment.find({comment_user:req.query.username})
         return res.status(200).json({error:false,message:'comments received successfully',usercomments:response})
     }catch(err){
         return res.status(409).json({error:true,message:err.message})
