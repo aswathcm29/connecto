@@ -66,12 +66,12 @@ const PopupComment = (props) => {
                 <div className={`${showCommnent ? 'h-[30rem]' : ' h-[20rem]'} bg-zinc-800 rounded-xl w-[35rem] p-4 relative flex flex-col gap-y-4`}>
                     <div className=''>
                         <div className='flex flex-row justify-between w-[80%] mx-auto border-b border-zinc-600'>
-                            <div className='flex flex-row '>
-                                <button className='p-2 text-lg font-semibold text-zinc-200' onClick={()=>setShowComment(false)}>Comment</button>
-                                <button className='p-2 text-lg font-semibold text-zinc-200' onClick={()=>setShowComment(true)}>View</button>
+                            <div className='flex flex-row gap-x-4 py-2'>
+                                <button className='py-1 px-2 text-lg font-semibold text-zinc-200 bg-zinc-600 rounded-lg ' onClick={()=>setShowComment(false)}>Comment</button>
+                                <button className='py-1 px-2 text-lg font-semibold text-zinc-200 bg-zinc-600 rounded-lg' onClick={()=>setShowComment(true)}>View</button>
                             </div>
                             <button onClick={closePopup} className={''}>
-                                <IoCloseCircleOutline className='text-3xl text-white' />
+                                <IoCloseCircleOutline className='text-3xl text-red-700' />
                             </button>
                         </div>
                     </div>
@@ -81,18 +81,18 @@ const PopupComment = (props) => {
                                 <div>
                                     <form className='flex flex-col gap-y-3' onSubmit={handleSubmit}>
                                         <div className='flex flex-col gap-y-2 w-[80%] mx-auto'>
-                                            <lable for="description" className="text-zinc-400 text-2xl">Add Comment</lable>
+                                            <lable for="description" className="text-zinc-200 text-2xl ">Add Comment</lable>
                                             <div className='h-[7rem] overflow-hidden rounded-xl py-2'>
-                                                <textarea className='w-full h-full bg-transparent outline-none focus:outline-none text-zinc-300' placeholder='Hello world !'
+                                                <textarea className='w-full h-full bg-transparent border p-2 border-zinc-700 rounded-lg focus:outline-none text-zinc-300' placeholder='Add a comment !'
                                                     onChange={(e) => setComment(e.target.value)}
                                                 ></textarea>
                                             </div>
                                         </div>
-                                        <div className='mt-1 border-b border-zinc-600 w-[80%] mx-auto'>
+                                        {/* <div className='mt-1 border-b border-zinc-600 w-[80%] mx-auto'>
 
-                                        </div>
+                                        </div> */}
                                         <div className='text-right w-[80%] mx-auto'>
-                                            <button className='px-3 py-2 rounded-xl bg-zinc-600 text-white'>Add</button>
+                                            <button className='px-3 py-2 rounded-xl bg-blue-800 text-white'>Add</button>
                                         </div>
                                     </form>
                                 </div>
@@ -133,7 +133,7 @@ export const CommentBox = (props) => {
     return (
         <>
             <div className='comment-box'>
-                <header className='flex items-center justify-between w-full h-[3.9rem] bg-zinc-900 text-zinc-200 rounded-t-lg '>
+                <header className='flex items-center justify-between w-full h-[3.8rem] bg-zinc-900 text-zinc-200 rounded-t-lg '>
                     <div className='flex flex-row items-center'>
                         <img src={`${props.profileImg}`} alt='mottai'
                             className='mx-2 rounded-full w-[3rem]'></img>
@@ -142,16 +142,16 @@ export const CommentBox = (props) => {
                             <span className='mx-2 text-[10px] text-zinc-300'>{props.time}</span>
                         </div>
                     </div>
-                    <div className='px-4 text-xl'>
+                    <div className='px-4 text-lg'>
                         <button className={`text-[1rem] w-[7rem] h-[2.4rem] rounded-xl ${follow ? ` bg-blue-800` : `border-blue-800 border-2`}`} onClick={ToggleFollow}>
                             {follow ? 'Follow' : 'Following'}
                         </button>
                     </div>
                 </header>
 
-                <mid className='p-2 '>
-                    <div className='p-4 rounded-xl overflow-hidden'>
-                        <span className='text-xl text-slate-200'>{props.description}</span>
+                <mid className='p-2'>
+                    <div className='px-2 rounded-xl overflow-hidden'>
+                        <span className='text-lg text-slate-200'>{props.description}</span>
                     </div>
                 </mid>
             </div>
