@@ -4,13 +4,11 @@ import axios from 'axios'
 import { BiLike } from "react-icons/bi";
 import { FaComment } from "react-icons/fa";
 import { BiSolidLike } from "react-icons/bi";
+import { timingFunction } from '../../utils/timingGenerator';
+
 
  const CreatePost=(props)=>{
   const { addPost, setAddPost } = props
-
-  const followHandle=()=>{
-
-  }
   return(
   <>
     <div className='create-post'>
@@ -31,7 +29,7 @@ import { BiSolidLike } from "react-icons/bi";
   )
  }
 const Posts = (props) => {
-  const { addPost, setAddPost, addComment, setAddComment } = props
+  const { addPost, setAddPost, addComment, setAddComment, setOpenedComment } = props
   const [allPosts,setAllPosts] = useState([])
 
   useEffect(()=>{
@@ -41,11 +39,20 @@ const Posts = (props) => {
   async function getAllPosts(){
     try{
       const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/newpost`,{withCredentials:true});
-      console.log(res.data)
+    
       const userPost = res.data.posts.filter((post) => {
         return post.username !== res.data.username
       })
-      setAllPosts(userPost)
+      console.log(userPost)
+      const newArray = userPost.map((post) => {
+        const timing = timingFunction(post.updatedAt)
+        return {
+          ...post,
+          timing,
+        }
+      })
+      console.log(newArray)
+      setAllPosts(newArray)
     }catch(err){
       console.log(err.response.data.message)
     }
@@ -62,11 +69,12 @@ const Posts = (props) => {
                   <Postbox addComment={addComment} setAddComment={setAddComment}
                     profileImg="https://th.bing.com/th/id/OIP.9KB-UoaLsFI-UFgy8n45AAAAAA?rs=1&pid=ImgDetMain"
                     username={post.username}
-                    time="2 hours ago"
+                    time={post.timing}
                     key={post.postId}
                     postId={post.postId}
                     description={post.content} 
                     likes={post.likes}
+                    setOpenedComment={setOpenedComment}
                     />
                 </>
               )
@@ -80,16 +88,19 @@ const Posts = (props) => {
 export const Postbox =(props)=>{
     const [follow,setFollow] = useState(false)
     const [active, setActive] = useState(false)
-    const {addComment,setAddComment} = props
+    const { addComment, setAddComment, setOpenedComment } = props
+
     const ToggleFollow = ()=>{
       setFollow(!follow)
     }
+
     const [username,setUsername] = useState(props.username)
     const [description, setDescription] = useState(props.description)
     const [likes, setLikes] = useState(props.likes)
     const [time,setTime] = useState(props.time)
     const [postId,setPostId] = useState(props.postId)
     const [likeflag, setLikeFlag] = useState(-1)
+
     const handleLikes = async () =>{
       try{
         const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/handlelikes?postId=${postId}`,{withCredentials:true})
@@ -100,10 +111,14 @@ export const Postbox =(props)=>{
           setLikeFlag(1)
         }
         setLikes(likes+res.data.what)
-
       } catch(err){
         console.log('problem in adding likes')
       }
+    }
+    
+    function handleComment(){
+      setAddComment(true)
+      setOpenedComment(postId)
     }
 
   return (
@@ -144,7 +159,7 @@ export const Postbox =(props)=>{
                </button>
             </div>
             <div className='flex  ml-4'>
-               <button className='flex flex-row px-2 py-2 bg-zinc-700 rounded-lg' onClick={()=>setAddComment(true)}>
+               <button className='flex flex-row px-2 py-2 bg-zinc-700 rounded-lg' onClick={handleComment}>
                  <FaComment className='text-2xl'/>
                  <span className='pl-2'>123</span>
                </button>

@@ -20,13 +20,26 @@ const addNewPost = async  (req,res) =>{
 
 const getPosts = async (req, res) =>{
     try{
-        const posts = await Posts.find()
+        const posts = await Posts.find({}).select(['-createdAt']).select({_id:0}).sort({likes:-1,updatedAt:-1}).limit(20)
         if(posts.length === 0){
             return res.status(404).json({error:true,message:'no post found'})
         }
         return res.status(200).json({error:false,posts,username:req.user.username})
     } catch(err){
         return res.status(409).json({error:true,message:err.message})
+    }
+}
+
+const getComments = async (req, res) => {
+
+    try{
+        const comments = await Comment.find({ postId: req.query.postId }).select({ _id: 0 }).sort({ likes: -1, updatedAt: -1 }).limit(10)
+        if(comments.length===0){
+            return res.status(404).json({ error: true, message: 'no Comments found' })
+        }
+        return res.status(200).json({ error: false, comments, username: req.user.username })
+    } catch(err){
+        return res.status(409).json({ error: true, message: err.message })
     }
 }
 
@@ -74,13 +87,13 @@ const handleComments = async (req,res) =>{
             comment,
         })
         await newComment.save()
-        return res.status(200).json({error:true,message:'Comment created successfully'})
+        return res.status(200).json({error:true,message:'Comment created successfully',newComment})
     } catch(err){
         return res.status(409).json({error:true,message:err.message})
     }
 }
 
 module.exports = {
-    addNewPost , handleLikes ,handleComments , getPosts
+    addNewPost , handleLikes ,handleComments , getPosts , getComments
 }
 
