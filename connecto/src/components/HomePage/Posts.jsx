@@ -2,7 +2,8 @@ import React , {useState} from 'react'
 import './homepage.css'
 import PopupPost from './PopupPost'
 import { TfiMore } from "react-icons/tfi";
-import Heart from "react-heart"
+import { BiLike } from "react-icons/bi";
+import { FaComment } from "react-icons/fa";
 
  const CreatePost=(props)=>{
   const { addPost, setAddPost } = props
@@ -17,7 +18,7 @@ import Heart from "react-heart"
         <div className='flex flex-row justify-between items-center'>
           <img src='https://i.pinimg.com/originals/10/ba/fc/10bafc8ee82ff594207410048a962188.jpg' alt='nothing'
           className='rounded-full w-[3rem]'></img>
-          <div className='w-[19rem] rounded-lg text-zinc-200 py-5 bg-zinc-700 ml-4 flex items-center justify-center'>
+          <div className='w-[19rem] rounded-lg text-zinc-200 py-3 bg-zinc-700 ml-4 flex items-center justify-center'>
             <span>What's happening ?</span>
           </div>
         </div>
@@ -82,14 +83,25 @@ const Postbox =(props)=>{
          </div>
          </mid>
 
-         <footer className='flex items-center justify-between w-full h-[3.9rem] bg-zinc-800 text-zinc-200 rounded-b-lg'>
-           <div className='flex'>
-            <div className='flex flex-col items-center justify-center'>
-          <Heart isActive={active} onClick={() => setActive(!active)} className={'w-[1.5rem]'}/>
-            <p className='px-8 '>Likes</p>
+         <footer className='flex items-center w-full h-[3.9rem] bg-zinc-800 text-zinc-200 rounded-b-lg'>
+           <div className='flex flex-col'>
+           <div className='flex items-center justify-between'>
+            <div className='flex  ml-4'>
+               <button className='flex flex-row px-2 py-2 bg-zinc-700 rounded-lg'>
+                 {/* <span>Reaction</span> */}
+                 <BiLike className='text-2xl '/>
+                 <span className='pl-2'>123</span>
+               </button>
             </div>
-            <p>Comments</p>
+            <div className='flex  ml-4'>
+               <button className='flex flex-row px-2 py-2 bg-zinc-700 rounded-lg'>
+                 <FaComment className='text-2xl'/>
+                 <span className='pl-2'>123</span>
+               </button>
+            </div>
+            </div>
            </div>
+           
          </footer>
      </div>
     </>
