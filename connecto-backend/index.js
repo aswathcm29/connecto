@@ -25,7 +25,7 @@ app.use(compression())
 app.use('/api/users',userRouter)
 app.use('/api/posts',postRouter)
 app.use('/api/profile',profileRouter)
-app.listen(process.env.PORT,()=>{
+app.listen(process.env.PORT || 'https://connecto-backend.vercel.app/',()=>{
     console.log('listening on port',process.env.PORT)
 })
 
