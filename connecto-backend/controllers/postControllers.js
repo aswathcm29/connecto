@@ -20,7 +20,7 @@ const addNewPost = async  (req,res) =>{
 
 const getPosts = async (req, res) =>{
     try{
-        const posts = await Posts.find({}).select(['-createdAt']).select({_id:0}).sort({likes:-1,updatedAt:-1}).limit(20)
+        const posts = await Posts.find({}).select({_id:0}).sort({likes:-1,createdAt:-1}).limit(20)
         if(posts.length === 0){
             return res.status(404).json({error:true,message:'no post found'})
         }
@@ -30,12 +30,13 @@ const getPosts = async (req, res) =>{
     }
 }
 
+
 const getComments = async (req, res) => {
 
     try{
-        const comments = await Comment.find({ postId: req.query.postId }).select({ _id: 0 }).sort({ likes: -1, updatedAt: -1 }).limit(10)
+        const comments = await Comment.find({ postId: req.query.postId }).select({ _id: 0 }).sort({createdAt: -1 }).limit(10)
         if(comments.length===0){
-            return res.status(404).json({ error: true, message: 'no Comments found' })
+            return res.status(404).json({ error: true, message: 'no Comments found',comments:[] })
         }
         return res.status(200).json({ error: false, comments, username: req.user.username })
     } catch(err){
