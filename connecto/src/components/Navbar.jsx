@@ -34,6 +34,15 @@ const Navbar = () => {
             }
         }
         
+        const handleLogout = async () => {
+            try{
+                const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/logout`,{withCredentials:true})
+                navigate('/login')
+            } catch(err){   
+                navigate('/home')
+            }
+        }
+        
   return (
     <>
       <nav className='flex justify-between items-center p-6 bg-zinc-950 text-white'>
@@ -56,18 +65,18 @@ const Navbar = () => {
                             <span className='text-[1rem]'>{'Chat'}</span>
                         </li>
                 </Link>
-                <Link to={`/notifications`}>
-                        <li className='nav-full'>
-                                <RiNotification2Fill className='mb-1' />
-                            <span className='text-[1rem]'>{'Ring'}</span>
-                        </li>
-                </Link>
                 <Link  to={`/profile/${username}`}>
                         <li className='nav-full'>
                              <CgProfile className='mb-1' />
                             <span className='text-[1rem]'>{'Profile'}</span>
                         </li>
                 </Link>
+                <button onClick={() => handleLogout()}>
+                    <li className='nav-full' >
+                        <RiNotification2Fill className='mb-1' />
+                        <span className='text-[1rem]'>{'Logout'}</span>
+                    </li>
+                </button>
             </ul>
         </div>
       </nav>
