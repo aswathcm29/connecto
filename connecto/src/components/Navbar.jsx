@@ -4,6 +4,7 @@ import { HiHome } from "react-icons/hi";
 import { RiNotification2Fill } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { IoSearchSharp } from "react-icons/io5";
+import { MdLogout } from "react-icons/md";
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -73,7 +74,7 @@ const Navbar = () => {
                 </Link>
                 <button onClick={() => handleLogout()}>
                     <li className='nav-full' >
-                        <RiNotification2Fill className='mb-1' />
+                        <MdLogout className='mb-1' />
                         <span className='text-[1rem]'>{'Logout'}</span>
                     </li>
                 </button>

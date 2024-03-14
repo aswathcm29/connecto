@@ -103,13 +103,14 @@ const LoginForm = () => {
             />
             <span className="text-sm text-white">Remember Me</span>
           </label>
-          <Link to="#" className="text-violet-500">
+          <Link to="#" className="text-blue-500">
             Forgot Password
           </Link>
         </div>
 
         <button
-          className="w-[70%] font-bold mb-4 text-[18px] mt-4 rounded-full bg-zinc-500 text-violet-800 hover:bg-violet-600 hover:text-white py-2 transition colors duration-300"
+          style={{'backgroundColor':'blue'}}
+          className="w-[70%] font-bold mb-4 text-[18px] mt-4 rounded-full  text-white py-2 transition colors duration-300"
           type="submit"
         >
           Login
@@ -117,7 +118,7 @@ const LoginForm = () => {
 
         <span className="mb-4">
           New here?{" "}
-          <button className="text-violet-500" onClick={() => toSignup()}>
+          <button className="text-blue-600" onClick={() => toSignup()}>
             Create an account
           </button>
         </span>

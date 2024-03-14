@@ -18,7 +18,7 @@ const LoginForm = () => {
   };
 
   const toSignup = () => {
-    navigate("/signup");
+    navigate("/login");
   };
 
   const handleSubmit = async (e) => {
@@ -47,7 +47,7 @@ const LoginForm = () => {
         onSubmit={handleSubmit}
       >
         <h1 className="text-4xl text-white font-bold text-center mb-6">
-          Login
+          Register
         </h1>
         <div className="relative my-2">
           <input
@@ -108,34 +108,19 @@ const LoginForm = () => {
           </label>
           <BiUser className="absolute top-1 right-4" />
         </div>
-        <br/>
         <p>{errorMessage}</p>
-        <div className="flex items-center justify-between w-full">
-          <label className="flex items-center">
-            <input
-              type="checkbox"
-              checked={rememberMe}
-              onChange={() => setRememberMe(!rememberMe)}
-              className="mr-2 text-white"
-            />
-            <span className="text-sm text-white">Remember Me</span>
-          </label>
-          <Link to="#" className="text-violet-500">
-            Forgot Password
-          </Link>
-        </div>
-
         <button
-          className="w-[70%] font-bold mb-4 text-[18px] mt-4 rounded-full bg-zinc-500 text-violet-800 hover:bg-violet-600 hover:text-white py-2 transition colors duration-300"
+          className="w-[70%] font-bold mb-4 text-[18px] mt-4 rounded-full text-white  py-2 transition colors duration-300"
           type="submit"
+          style={{'backgroundColor':'blue'}}
         >
-          Login
+          Register
         </button>
 
         <span className="mb-4">
-          New here?{" "}
-          <button className="text-violet-500" onClick={() => toSignup()}>
-            Create an account
+          Have account?{" "}
+          <button className="text-blue-500" onClick={() => toSignup()}>
+            Login
           </button>
         </span>
         <label>{errorMessage}</label>
