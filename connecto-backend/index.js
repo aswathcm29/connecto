@@ -14,7 +14,7 @@ const connection = require('./db')
 connection()
 app.use(cookieParser())
 const corsOptions = {
-    origin: ['https://connecto-eight.vercel.app','http://localhost:3000',],
+    origin: 'https://connecto-eight.vercel.app',
     credentials: true,
     optionsSuccessStatus:   200,
 }
