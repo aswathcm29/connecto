@@ -16,11 +16,22 @@ const Profile = () => {
     const [followers,setFollowers] = useState(0);
     const [following,setFollowing] = useState(0)
     const [isfollowing,setIsfollow] = useState(0)
+    const [userPost,setUserPost] = useState([])
+    const [userComments, setUserComments] = useState([])
+    const [userLikes, setUserLikes] = useState([])
+    const [defaultShow,setDefaultShow] = useState(0)
+
     useEffect(()=>{
         fetctUserData()
         checkFollowers()
+       
     },[])
 
+    useEffect(()=>{
+        hanldeUserPost()
+        hanldeUserComments()
+        hanldeUserLikes()
+    },[username])
 
     async function checkFollowers() {
         try{
@@ -58,6 +69,34 @@ const Profile = () => {
 
         }
     }
+
+    async function hanldeUserPost(){
+        try{    
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/userposts?username=${username}`, { withCredentials: true })
+            setUserPost(res.data.userposts)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    async function hanldeUserComments() {
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/usercomments?username=${username}`, { withCredentials: true })
+            setUserComments(res.data.usercomments)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    async function hanldeUserLikes() {
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/userlikes?username=${username}`, { withCredentials: true })
+            setUserLikes(res.data.posts)
+        } catch (err) {
+            console.log(err)
+        }   
+    }
+
 
     return(
         <>
@@ -125,21 +164,21 @@ const Profile = () => {
                 <div className='h-[100vh]'>
                     <div className='w-[60%] mx-auto h-full flex flex-row p-8 gap-4 border-t border-zinc-600 '>
                         <div className='w-[22rem] h-[20rem] flex flex-col gap-y-8 pt-[3rem] bg-zinc-950 rounded-xl items-center border-2 border-zinc-600  shadow-lg shadow-zinc-800'>
-                            <div className='flex flex-row  justify-center gap-x-3 bg-blue-800 w-[10rem] h-[3rem] rounded-xl items-center'>
+                            <div className={`flex flex-row  justify-center gap-x-3 ${defaultShow === 0 ? 'bg-blue-800' : ''} w-[10rem] h-[3rem] rounded-xl items-center duration-200 ease-in`}>
                                 <IoSend className='text-lg'/>
-                                <button className='text-lg'>Posts</button>
+                                <button className='text-lg' onClick={()=>setDefaultShow(0)}>Posts</button>
                             </div>
-                            <div className='flex flex-row  justify-center gap-x-3 bg-blue-800 w-[10rem] h-[3rem] rounded-xl items-center'> 
+                            <div className={`flex flex-row  justify-center gap-x-3 ${defaultShow === 1 ? ' bg-blue-800' : ''} w-[10rem] h-[3rem] rounded-xl items-center duration-200 ease-in`}> 
                                 <FaComment className='text-lg' />
-                                <button className='text-lg'>Comments</button>
+                                <button className='text-lg' onClick={() => setDefaultShow(1)}>Comments</button>
                             </div>
-                            <div className='flex flex-row  justify-center gap-x-3 bg-blue-800 w-[10rem] h-[3rem] rounded-xl items-center'>
+                            <div className={`flex flex-row  justify-center gap-x-3 ${defaultShow === 2 ? ' bg-blue-800' : ''} w-[10rem] h-[3rem] rounded-xl items-center duration-200 ease-in`}>
                                 <BiSolidLike className='text-lg'/>
-                                <button className='text-lg'>Likes</button>
+                                <button className='text-lg' onClick={() => setDefaultShow(2)}>Likes</button>
                             </div>
                         </div>
                         <div className='w-full bg-zinc-950 h-[45rem] overflow-y-auto no-scrollbar rounded-xl border-2 border-zinc-600 py-10  shadow-lg shadow-zinc-800'>
-                                <UserActivity/>
+                                <UserActivity  posts={userPost} comments={userComments} likes={userLikes} defaultShow={defaultShow}/>
                         </div>
                     </div>
                 </div>

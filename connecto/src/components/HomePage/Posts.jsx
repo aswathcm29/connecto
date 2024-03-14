@@ -45,7 +45,8 @@ const Posts = (props) => {
       })
       console.log(userPost)
       const newArray = userPost.map((post) => {
-        const timing = timingFunction(post.updatedAt)
+
+        const timing = timingFunction(post.createdAt)
         return {
           ...post,
           timing,

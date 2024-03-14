@@ -22,7 +22,7 @@ const PopupComment = (props) => {
         try{
             const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/handleComments?postId=${openedComment}`,{withCredentials:true})
             const newArray = res.data.comments.map((comment)=>{
-                const timing = timingFunction(comment.updatedAt)
+                const timing = timingFunction(comment.createdAt)
                 return{
                     ...comment,
                     timing,
@@ -51,7 +51,7 @@ const PopupComment = (props) => {
                     withCredentials:true,
                 }
             )
-            const timing = timingFunction(res.data.newComment.updatedAt);
+            const timing = timingFunction(res.data.newComment.createdAt);
             setAllComments([{...res.data.newComment,timing},...allComments])
         }
         catch (err) {

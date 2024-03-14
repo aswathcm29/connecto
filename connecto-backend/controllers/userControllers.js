@@ -84,6 +84,21 @@ const authUser = async(req,res) =>{
 }
 
 
+const logout = (req,res) =>{
+    req.cookies.loggedIn = false;
+    res.cookie('token', '', {
+        httpOnly: true, // Prevent client-side JavaScript access
+        expires: new Date(Date.now() - 1000), // Expire immediately
+    });
+
+    res.cookie('loggedIn', 'false', { // Set loggedIn to false
+        httpOnly: true, // Prevent client-side JavaScript access
+        expires: new Date(Date.now() - 1000), // Expire immediately
+    });
+    return res.status(200).json({ message: 'You are logged out!' });
+}
+ 
+
 module.exports = {
-    registerUser , loginUser , authUser
+    registerUser , loginUser , authUser , logout
 }
