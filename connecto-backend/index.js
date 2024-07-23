@@ -13,12 +13,7 @@ const connection = require('./db')
 
 connection()
 app.use(cookieParser())
-const corsOptions = {
-    origin: 'https://connecto-eight.vercel.app',
-    credentials: true,
-    optionsSuccessStatus:   200,
-}
-app.use(cors(corsOptions))
+app.use(cors())
 app.use(express.json())
 app.use(bodyParser.json())
 app.use(compression())
