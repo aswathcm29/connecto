@@ -22,7 +22,8 @@ app.use('/api/posts',postRouter)
 app.use('/api/profile',profileRouter)
 
 app.get('/',(req,res)=>{
-    res.send('Hello world !')
+    res.send('Hello world !');
+    console.log('Check working')
 })
 
 app.listen(process.env.PORT || 'https://connecto-backend.vercel.app/',()=>{
